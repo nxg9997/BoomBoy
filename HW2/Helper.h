@@ -18,5 +18,6 @@ public:
 	static b2Vec2 ClampMagnitude(b2Vec2 vec, float length);
 	static b2Vec2 Seek(b2Vec2 pos, b2Vec2 target);
 	static b2Vec2 RotateVector(b2Vec2 vec, float angle);
+	static nlohmann::json ReadFile(std::string path);
 };
 

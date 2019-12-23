@@ -113,12 +113,16 @@ void Player::Update()
 		mouseHeld = false;
 	}
 
-	if (mouseHeld) { 
+	//while he left click is held
+	if (mouseHeld && (body->GetLinearVelocity().Length() > -b2_epsilon && body->GetLinearVelocity().Length() < b2_epsilon)) {
+		//rotate the reticle with the mouse's horizontal movement
 		MoveRet();
 		drawRet = true;
+
+		//increase the launch power while the right click is held
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
 			currLaunchPower += launchIncrement;
-			std::cout << currLaunchPower << std::endl;
+			//std::cout << currLaunchPower << std::endl;
 		}
 	}
 	else drawRet = false;
@@ -146,7 +150,7 @@ void Player::Draw(b2Vec2 * origin)
 	float radius = 100 - Helper::Map(currLaunchPower < maxBoom ? currLaunchPower : maxBoom, 0, maxBoom, 0, 100);
 	sf::CircleShape shape2(radius);
 	shape2.setFillColor(sf::Color::Transparent);
-	shape2.setOutlineColor(sf::Color::Red);
+	shape2.setOutlineColor(sf::Color(255,0,0,255 - Helper::Map(radius, 0, 100, 0, 255)));
 	shape2.setOutlineThickness(2);
 	shape2.setPosition(sf::Vector2f(body->GetPosition().x - size->x / 2 + origin->x + retPos.x - radius + retRadius, body->GetPosition().y - size->y / 2 + origin->y + retPos.y - radius + retRadius));
 	window->draw(shape2);

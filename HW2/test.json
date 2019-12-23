@@ -1,0 +1,28 @@
+{
+	"test":[
+		"working from file! :)",
+		"working 2",
+		"working 3"
+	],
+	"platforms":[
+		{
+			"type": 0,
+			"position": {"x": 100, "y": 100},
+			"size": {"x": 50, "y": 50}
+		},
+		{
+			"type": 0,
+			"position": {"x": 200, "y": 100},
+			"size": {"x": 50, "y": 50}
+		},
+		{
+			"type": 1,
+			"position": {"x": 300, "y": 100},
+			"vertices":[
+				{"x": 0, "y": 0},
+				{"x": 0, "y": 50},
+				{"x": 50, "y": 25}
+			]
+		}
+	]
+}

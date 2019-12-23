@@ -105,3 +105,23 @@ b2Vec2 Helper::RotateVector(b2Vec2 vec, float angle)
 	float y_rotated = sin(angle) * vec.x + cos(angle) * vec.y;
 	return b2Vec2(x_rotated, y_rotated);
 }
+
+json Helper::ReadFile(std::string path)
+{
+	json result;
+
+	//read file from path
+	std::ifstream input(path, std::ios::binary);
+	input.seekg(0, std::ios::end);
+	int len = (int)input.tellg();
+	input.seekg(0, std::ios::beg);
+	char* data = new char[len + 1];
+	input.read(data, len);
+	data[len] = 0;
+	input.close();
+
+	//parse data to json
+	result = json::parse(std::string(data));
+
+	return result;
+}
