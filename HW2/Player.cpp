@@ -14,8 +14,11 @@ Player::~Player()
 
 void Player::HandleInput()
 {
+	//was the player in control last frame?
 	prevInput = isInput;
 	isInput = false;
+
+	//check keyboard input
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 		body->ApplyForceToCenter(b2Vec2(0, -moveForce), true);
 		isInput = true;
@@ -33,8 +36,10 @@ void Player::HandleInput()
 		isInput = true;
 	}
 
+	//if the player is in control, limit the player velocity
 	if (isInput && prevInput) body->SetLinearVelocity(Helper::SetVecMagnitude(body->GetLinearVelocity(), 20));
 
+	//only allow jumping if the button is tapped and not held
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !prevSpace) {
 		body->ApplyLinearImpulseToCenter(b2Vec2(0, -20000), true);
 		//isInput = true;
@@ -44,6 +49,7 @@ void Player::HandleInput()
 		prevSpace = false;
 	}
 
+	//check if the mouse is clicked
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 		b2Vec2 bForce(0,0);
 		b2Vec2 mousePos = Helper::GetMouse(window);
@@ -57,6 +63,7 @@ void Player::HandleInput()
 
 void Player::Boom(b2Vec2 force)
 {
+	//apply explosive force to the player based on the mouse click
 	if (body->GetLinearVelocity().Length() > -b2_epsilon && body->GetLinearVelocity().Length() < b2_epsilon) {
 		force = Helper::ClampMagnitude(force, 300);
 		force = Helper::SetVecMagnitude(force, Helper::Map(300 - force.Length(), 0, 100, minBoom, maxBoom));
@@ -68,9 +75,13 @@ void Player::Boom(b2Vec2 force)
 
 void Player::Update()
 {
+	//update the previous position before modifying the current position
 	prevPos = b2Vec2(body->GetPosition().x, body->GetPosition().y);
 
+	//check input
 	HandleInput();
+
+	//if the player was in control and is no longer in control, stop them from moving
 	if(!isInput && prevInput) body->SetLinearVelocity(b2Vec2(0, 0));
 
 	std::cout << "Player Position: { " << body->GetPosition().x << ", " << body->GetPosition().y << " }" << std::endl;

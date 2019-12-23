@@ -6,8 +6,11 @@ GameObject::GameObject(b2World * _world, sf::RenderWindow * _win, b2Vec2 _pos, b
 	world = _world;
 	window = _win;
 	size = new b2Vec2(_size.x, _size.y);
+
+	//correct for box2d -> sfml coordinate conversion
 	_pos.x += size->x/2;
 	_pos.y += size->y/2;
+
 	body = Helper::CreateBody(world, _pos, _size, _type, _density,friction);
 	color = _color;
 }
@@ -19,9 +22,11 @@ GameObject::~GameObject()
 
 void GameObject::Draw(b2Vec2* origin)
 {
+	//set the camera position if its not already set
 	if (cam == nullptr) {
 		cam = origin;
 	}
+
 	sf::RectangleShape shape(Helper::B2Vec2ToSfVec2(*size));
 	shape.setFillColor(color);
 	shape.setPosition(sf::Vector2f(body->GetPosition().x - size->x/2 + origin->x, body->GetPosition().y - size->y/2 + origin->y));
