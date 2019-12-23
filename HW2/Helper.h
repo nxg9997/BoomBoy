@@ -16,5 +16,7 @@ public:
 	static b2Vec2 GetMouse(sf::RenderWindow* window);
 	static float Map(float input, float input_start, float input_end, float output_start, float output_end);
 	static b2Vec2 ClampMagnitude(b2Vec2 vec, float length);
+	static b2Vec2 Seek(b2Vec2 pos, b2Vec2 target);
+	static b2Vec2 RotateVector(b2Vec2 vec, float angle);
 };
 

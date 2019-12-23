@@ -89,3 +89,19 @@ b2Vec2 Helper::ClampMagnitude(b2Vec2 vec, float length)
 	}
 	return vec;
 }
+
+b2Vec2 Helper::Seek(b2Vec2 pos, b2Vec2 target)
+{
+	b2Vec2 result(0, 0);
+
+	result = target - pos;
+
+	return result;
+}
+
+b2Vec2 Helper::RotateVector(b2Vec2 vec, float angle)
+{
+	float x_rotated = cos(angle) * vec.x - sin(angle) * vec.y;
+	float y_rotated = sin(angle) * vec.x + cos(angle) * vec.y;
+	return b2Vec2(x_rotated, y_rotated);
+}

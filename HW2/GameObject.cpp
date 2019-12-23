@@ -15,6 +15,10 @@ GameObject::GameObject(b2World * _world, sf::RenderWindow * _win, b2Vec2 _pos, b
 	color = _color;
 }
 
+GameObject::GameObject()
+{
+}
+
 GameObject::~GameObject()
 {
 	delete size;
@@ -29,6 +33,8 @@ void GameObject::Draw(b2Vec2* origin)
 
 	sf::RectangleShape shape(Helper::B2Vec2ToSfVec2(*size));
 	shape.setFillColor(color);
+	shape.setOutlineColor(sf::Color::Green);
+	shape.setOutlineThickness(1);
 	shape.setPosition(sf::Vector2f(body->GetPosition().x - size->x/2 + origin->x, body->GetPosition().y - size->y/2 + origin->y));
 	window->draw(shape);
 }

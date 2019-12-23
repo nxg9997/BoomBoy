@@ -4,6 +4,7 @@ class GameObject
 {
 public:
 	GameObject(b2World* _world, sf::RenderWindow* _win, b2Vec2 _pos, b2Vec2 _size, b2BodyType _type, float _density, sf::Color _color, float friction);
+	GameObject();
 	~GameObject();
 
 	//game data
@@ -16,7 +17,7 @@ public:
 	b2Vec2* size;
 	sf::Color color;
 
-	void Draw(b2Vec2* origin);
+	virtual void Draw(b2Vec2* origin);
 
 };
 

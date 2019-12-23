@@ -5,6 +5,10 @@ Platform::Platform(b2World * _world, sf::RenderWindow * _win, b2Vec2 _pos, b2Vec
 {
 }
 
+Platform::Platform():GameObject()
+{
+}
+
 Platform::~Platform()
 {
 }
