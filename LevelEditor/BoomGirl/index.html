@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <title>BoomGirl (BoomBoy Level Editor)</title>
+    <link rel="stylesheet" href="./css/style.css">
+  </head>
+  <body>
+    <div id="controls">
+      <select id="platform-type">
+        <option value="rect">Rectangle</option>
+        <option value="complex">Polygon</option>
+      </select>
+      <input type="text" id="poly-verts" placeholder='[{"x":25,"y":0},{"x":0,"y":50},{"x":50,"y":50}]'>
+      <button id="addPoly">Add Polygon</button>
+      <button id="genOutput">Output File</button>
+      <input type="text" id="dimentions" placeholder='{"width":100,"height":100}'>
+      <button id="changeDimentions">Change Size</button>
+    </div>
+    
+    <canvas id="c">
+      why this no work for you???
+    </canvas>
+  </body>
+  <script src="./renderer.js"></script>
+  <script src="./lib/fabric.min.js"></script>
+  <script src="js/main.js"></script>
+</html>

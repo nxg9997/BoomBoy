@@ -1,0 +1,91 @@
+{
+	"test":[
+		"working from file! :)",
+		"working 2",
+		"working 3"
+	],
+	"platforms":[
+		{
+			"name": "floor",
+			"type": 0,
+			"position": {"x": 0, "y": 720},
+			"size": {"x": 1280, "y": 50}
+		},
+		{
+			"name": "left_wall",
+			"type": 0,
+			"position": {"x": 0, "y": 0},
+			"size": {"x": 50, "y": 720}
+		},
+		{
+			"name": "right_wall",
+			"type": 0,
+			"position": {"x": 1230, "y": 0},
+			"size": {"x": 50, "y": 720}
+		},
+		{
+			"name": "ceilling",
+			"type": 0,
+			"position": {"x": 0, "y": -50},
+			"size": {"x": 1280, "y": 50}
+		},
+		{
+			"name": "test_tri",
+			"type": 1,
+			"position": {"x": 300, "y": 100},
+			"vertices":[
+				{"x": 0, "y": 0},
+				{"x": 0, "y": 50},
+				{"x": 50, "y": 25}
+			]
+		},
+		{
+			"name": "left_tri",
+			"type": 1,
+			"position": {"x": 0, "y": 360},
+			"vertices":[
+				{"x": 0, "y": 0},
+				{"x": 0, "y": 360},
+				{"x": 200, "y": 360}
+			]
+		},
+		{
+			"name": "p_1",
+			"type": 0,
+			"position": {"x": 1130, "y": 600},
+			"size": {"x": 100, "y": 25}
+		},
+		{
+			"name": "right_tri",
+			"type": 1,
+			"position": {"x": 1180, "y": 550},
+			"vertices":[
+				{"x": 0, "y": 50},
+				{"x": 50, "y": 50},
+				{"x": 50, "y": 0}
+			]
+		},
+		{
+			"name": "p_2",
+			"type": 0,
+			"position": {"x": 1000, "y": 500},
+			"size": {"x": 100, "y": 25}
+		},
+		{
+			"name": "big_mid_tri",
+			"type": 1,
+			"position": {"x": 640, "y": 300},
+			"vertices":[
+				{"x": 150, "y": 0},
+				{"x": 0, "y": 150},
+				{"x": 300, "y": 150}
+			]
+		},
+		{
+			"name": "p_3",
+			"type": 0,
+			"position": {"x": 640, "y": 200},
+			"size": {"x": 100, "y": 50}
+		}
+	]
+}
