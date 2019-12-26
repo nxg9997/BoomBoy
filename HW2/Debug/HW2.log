@@ -1,13 +1,5 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (HW2.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  main.cpp
-c:\users\natha\source\repos\boomboyb2d\hw2\main.cpp(32): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-c:\users\natha\source\repos\boomboyb2d\hw2\main.cpp(60): warning C4018: '<': signed/unsigned mismatch
-c:\users\natha\source\repos\boomboyb2d\hw2\main.cpp(65): warning C4018: '<': signed/unsigned mismatch
-c:\users\natha\source\repos\boomboyb2d\hw2\main.cpp(105): warning C4244: '=': conversion from '_Rep' to 'float', possible loss of data
-          with
-          [
-              _Rep=__int64
-          ]
-c:\users\natha\source\repos\boomboyb2d\hw2\main.cpp(142): warning C4018: '<': signed/unsigned mismatch
-c:\users\natha\source\repos\boomboyb2d\hw2\main.cpp(164): warning C4018: '<': signed/unsigned mismatch
+﻿  ComplexPlatform.cpp
+c:\users\natha\source\repos\boomboyb2d\hw2\complexplatform.cpp(42): warning C4305: '=': truncation from 'double' to 'float32'
+  GameObject.cpp
+  Generating Code...
   HW2.vcxproj -> C:\Users\natha\source\repos\BoomBoyB2D\Debug\BoomBoy.exe

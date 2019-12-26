@@ -61,7 +61,12 @@ void ComplexPlatform::Draw(b2Vec2* origin)
 	for (int i = 0; i < vertCount; i++) {
 		polygon.setPoint(i, sf::Vector2f(verticies[i].x, verticies[i].y));
 	}
-	polygon.setFillColor(sf::Color::Blue);
+	if (texture == nullptr)
+		polygon.setFillColor(sf::Color::Blue);
+	else {
+		polygon.setTexture(texture);
+		//polygon.setTextureRect(sf::IntRect(0, 0, 50, 50));
+	}
 	polygon.setOutlineColor(sf::Color::Green);
 	polygon.setOutlineThickness(1);
 	polygon.setPosition(sf::Vector2f(body->GetPosition().x + origin->x, body->GetPosition().y + origin->y));
