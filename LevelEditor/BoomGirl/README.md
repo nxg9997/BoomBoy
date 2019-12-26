@@ -1,45 +1,44 @@
-# electron-quick-start
+# BoomGirl (BoomBoy Level Editor)
 
-**Clone and run for a quick way to see Electron in action.**
+## About
 
-This is a minimal Electron application based on the [Quick Start Guide](https://electronjs.org/docs/tutorial/quick-start) within the Electron documentation.
-
-**Use this app along with the [Electron API Demos](https://electronjs.org/#get-started) app for API code examples to help you get started.**
-
-A basic Electron application needs just these files:
-
-- `package.json` - Points to the app's main file and lists its details and dependencies.
-- `main.js` - Starts the app and creates a browser window to render HTML. This is the app's **main process**.
-- `index.html` - A web page to render. This is the app's **renderer process**.
-
-You can learn more about each of these components within the [Quick Start Guide](https://electronjs.org/docs/tutorial/quick-start).
+BoomGirl is an Electron-based level editor for BoomBoy.
 
 ## To Use
 
-To clone and run this repository you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+To run BoomGirl, launch a terminal window from within this folder and run the following commands:
 
 ```bash
-# Clone this repository
-git clone https://github.com/electron/electron-quick-start
-# Go into the repository
-cd electron-quick-start
 # Install dependencies
 npm install
 # Run the app
 npm start
 ```
 
-Note: If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.
+## Instructions
 
-## Resources for Learning Electron
+### Controls Bar
 
-- [electronjs.org/docs](https://electronjs.org/docs) - all of Electron's documentation
-- [electronjs.org/community#boilerplates](https://electronjs.org/community#boilerplates) - sample starter apps created by the community
-- [electron/electron-quick-start](https://github.com/electron/electron-quick-start) - a very basic starter Electron app
-- [electron/simple-samples](https://github.com/electron/simple-samples) - small applications with ideas for taking them further
-- [electron/electron-api-demos](https://github.com/electron/electron-api-demos) - an Electron app that teaches you how to use Electron
-- [hokein/electron-sample-apps](https://github.com/hokein/electron-sample-apps) - small demo apps for the various Electron APIs
+Dropdown - Swap between placing rectangular platforms and the player object.
 
-## License
+Polygon Generator - (1st Box) Directly input the vertices for the polygon in a JSON format. (2nd Box) Input a new vertex position. (Add Vertex) Click to append the vertex from (2nd Box) to the polygon. (Remove Vertex) Click to discard the newest vertex from the polygon vertex list. (Add Polygon) Click to generate a polygon based on the vertices inside the (1st Box).
 
-[CC0 1.0 (Public Domain)](LICENSE.md)
+Output File - Click to create a level data file within the BoomBoy source files.
+
+Change Level Size - (Box) Directly input the width and height of the level in a JSON format. (Change Size) Click to change the level size to match the data from (Box).
+
+Play - Click to play BoomBoy.
+
+### Console Log
+
+The bottom-left contains a textbox that will display messages about the status of the editor.
+
+### Editing Geometry
+
+Right-click to place a rectangular platform at the mouse position. Rectangular blocks can be stretched and moved around the level by left-clicking and useing the on-screen controls.
+
+Place a custom polygon by using the Polygon Generator in the Controls Bar. Polygons can be moved, but their size cannot (or should not) be modified due to not being supported by BoomBoy.
+
+### Other
+
+BoomGirl will automatically open the level data file from the BoomBoy source files when launching.

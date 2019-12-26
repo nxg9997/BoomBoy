@@ -1,5 +1,6 @@
 "use strict";
 let fs = require('fs');
+const { exec } = require('child_process');
 
 console.log("hi");
 
@@ -20,8 +21,23 @@ let changeDim = document.querySelector("#changeDimentions");
 let addVert = document.querySelector("#addVert");
 let remVert = document.querySelector("#remVert");
 let addVertIn = document.querySelector("#add-vert-input");
+let playGame = document.querySelector("#runGame");
 
 polyInput.value = '[{"x":25,"y":0},{"x":0,"y":50},{"x":50,"y":50}]';
+
+playGame.onmousedown = e => {
+    cout("running game");
+    exec('cd ../../Debug && BoomBoy.exe', (err, stdout, stderr) => {
+        if (err) {
+            //some err occurred
+            console.error(err)
+        } else {
+            // the *entire* stdout and stderr (buffered)
+            //console.log(`stdout: ${stdout}`);
+            //console.log(`stderr: ${stderr}`);
+        }
+    });
+};
 
 addVert.onmousedown = e => {
     let str = polyInput.value;
@@ -197,6 +213,10 @@ function createJSON(){
 function writeFile(data){
     cout("writing output.json");
     fs.writeFile("../../HW2/output.json",JSON.stringify(data),()=>{
+        console.log("done");
+        cout("finished writing output.json");
+    });
+    fs.writeFile("../../Debug/output.json",JSON.stringify(data),()=>{
         console.log("done");
         cout("finished writing output.json");
     });

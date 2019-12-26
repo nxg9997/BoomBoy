@@ -8,6 +8,6 @@ c:\users\natha\source\repos\boomboyb2d\hw2\main.cpp(105): warning C4244: '=': co
           [
               _Rep=__int64
           ]
-c:\users\natha\source\repos\boomboyb2d\hw2\main.cpp(138): warning C4018: '<': signed/unsigned mismatch
-c:\users\natha\source\repos\boomboyb2d\hw2\main.cpp(160): warning C4018: '<': signed/unsigned mismatch
+c:\users\natha\source\repos\boomboyb2d\hw2\main.cpp(142): warning C4018: '<': signed/unsigned mismatch
+c:\users\natha\source\repos\boomboyb2d\hw2\main.cpp(164): warning C4018: '<': signed/unsigned mismatch
   HW2.vcxproj -> C:\Users\natha\source\repos\BoomBoyB2D\Debug\BoomBoy.exe
