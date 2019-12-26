@@ -17,10 +17,40 @@ let addPloy = document.querySelector("#addPoly");
 let genOutput = document.querySelector("#genOutput");
 let dimInput = document.querySelector("#dimentions");
 let changeDim = document.querySelector("#changeDimentions");
+let addVert = document.querySelector("#addVert");
+let remVert = document.querySelector("#remVert");
+let addVertIn = document.querySelector("#add-vert-input");
+
+polyInput.value = '[{"x":25,"y":0},{"x":0,"y":50},{"x":50,"y":50}]';
+
+addVert.onmousedown = e => {
+    let str = polyInput.value;
+    str = str.substr(0,str.length-1);
+    let nVer = addVertIn.value;
+    let nVerPar = nVer.split(',');
+    str += ',{"x":' + nVerPar[0] + ',"y":' + nVerPar[1] + '}]';
+    polyInput.value = str;
+};
+
+remVert.onmousedown = e => {
+    let str = polyInput.value;
+    let index = -1;
+    for(let i = str.length - 1; i > 0; i--){
+        if(str[i] == '{'){
+            index = i;
+            break;
+        }
+    }
+    if(index == -1) return;
+    str = str.substr(0,index-1) + "]";
+    console.log(str);
+    polyInput.value = str;
+};
 
 changeDim.onmousedown = e => {
     let dims = JSON.parse(dimInput.value);
     canvas.setDimensions({width:dims.width, height:dims.height});
+    createGrid();
 };
 
 genOutput.onmousedown = e => {
@@ -43,8 +73,11 @@ addPloy.onmousedown = e => {
 };
 
 let gameObjects = [];
+let player = null;
+let playerPos = {x:0,y:0};
+let gridLines = [];
 
-readFile("output.json");
+readFile("../../HW2/output.json");
 
 /*let line = new fabric.Line([0,0,100,100]);
 line.stroke = 'red';
@@ -67,7 +100,7 @@ console.log(rect);
 */
 
 onkeydown = e => {
-    console.log(e);
+    //console.log(e);
     if(e.key == 'Delete'){
         //console.log("deleting");
         let obj = canvas.getActiveObject();
@@ -97,8 +130,25 @@ onmousedown = e => {
         if(platSelect.value == "rect"){
             go = new GameObject(0,{x:e.clientX + scrollLeft,y:e.clientY + scrollTop});
         }
-        else if(platSelect.value == "complex"){
-            
+        else if(platSelect.value == "player"){
+            if(player != null){
+                canvas.remove(player);
+            }
+
+            let p = new fabric.Circle(
+            {
+                left: e.clientX + scrollLeft,
+                top: e.clientY + scrollTop,
+                radius: 5,
+                fill: 'red',
+                stroke: 'green',
+                strokeWidth: 1
+            });
+            player = p;
+            playerPos.x = e.clientX + scrollLeft;
+            playerPos.y = e.clientY + scrollTop;
+
+            canvas.add(p);
             return;
         }
         gameObjects.push(go);
@@ -106,9 +156,17 @@ onmousedown = e => {
 };
 
 function createJSON(){
+    cout("compiling level data");
+    let pX = 0;
+    let pY = 0;
+    if(player != null){
+        pX = player.aCoords.tl.x;
+        pY = player.aCoords.tl.y;
+    }
     let data = {
         "platforms":[],
-        "dimentions":{"width":100,"height":100}
+        "dimentions":{"width":100,"height":100},
+        "player":{"x":pX,"y":pY}
     };
     for(let i = 0; i < gameObjects.length; i++){
         if(gameObjects[i].type == 0){
@@ -137,15 +195,20 @@ function createJSON(){
 }
 
 function writeFile(data){
-    fs.writeFile("output.json",JSON.stringify(data),()=>{
+    cout("writing output.json");
+    fs.writeFile("../../HW2/output.json",JSON.stringify(data),()=>{
         console.log("done");
+        cout("finished writing output.json");
     });
 }
 
 function readFile(path){
+    cout("reading " + path);
     fs.readFile(path,(err,data)=>{
         //console.log(data.toString());
         let parsed = JSON.parse(data.toString());
+        canvas.setDimensions({width:parsed["dimentions"].width, height:parsed["dimentions"].height});
+        createGrid();
         for(let i = 0; i < parsed["platforms"].length; i++){
             //console.log(parsed["platforms"][i]["vertices"]);
             let verts = null;
@@ -159,7 +222,20 @@ function readFile(path){
             let go = new GameObject(parsed["platforms"][i]["type"],parsed["platforms"][i]["position"],verts,size);
             gameObjects.push(go);
         }
-        canvas.setDimensions({width:parsed["dimentions"].width, height:parsed["dimentions"].height});
+        playerPos.x = parsed["player"]["x"];
+        playerPos.y = parsed["player"]["y"];
+        let p = new fabric.Circle(
+        {
+            left: playerPos.x,
+            top: playerPos.y,
+            radius: 5,
+            fill: 'red',
+            stroke: 'green',
+            strokeWidth: 1
+        });
+        player = p;
+        canvas.add(player);
+        cout("finished reading " + path);
     });
 }
 
@@ -169,6 +245,31 @@ function createPolygon(vertices=[]){
     let scrollTop = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
     let go = new GameObject(1,{x:100 + scrollLeft,y:100 + scrollTop},vertices);
     gameObjects.push(go);
+}
+
+function cout(str){
+    let con = document.querySelector("#console-area");
+    let date = new Date();
+    con.value = date.getHours() + ":" + date.getMinutes() + " " + str + "\n" + con.value;
+}
+
+function createGrid(){
+    for(let i = 0; i < gridLines.length; i++){
+        canvas.remove(gridLines[i]);
+    }
+    let color = 'rgba(100,100,100,.5)';
+    for(let i = 0; i < canvas.width; i+=10){
+        let line = new fabric.Line([i,0,i,canvas.height],{selectable: false});
+        line.stroke = color;
+        line.strokeWidth = 1;
+        canvas.add(line);
+    }
+    for(let i = 0; i < canvas.height; i+=10){
+        let line = new fabric.Line([0,i,canvas.width,i],{selectable: false});
+        line.stroke = color;
+        line.strokeWidth = 1;
+        canvas.add(line);
+    }
 }
 
 class GameObject{
@@ -191,7 +292,9 @@ class GameObject{
             let polygon = new fabric.Polygon(vertices, {
                 left: pos.x,
                 top: pos.y,
-                fill: 'purple'
+                fill: 'purple',
+                stroke: 'green',
+                strokeWidth: 1
             });
             this.vertices = vertices;
             this.shape = polygon;

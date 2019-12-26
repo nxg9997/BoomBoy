@@ -5,6 +5,7 @@
 Player::Player(b2World* _world, sf::RenderWindow* _win, b2Vec2 _pos, b2Vec2 _size, float _density = 1.0f):GameObject(_world, _win, _pos, _size, b2_dynamicBody, _density, sf::Color::Red,.3)
 {
 	prevPos = b2Vec2(body->GetPosition().x, body->GetPosition().y);
+	initPos = b2Vec2(_pos.x, _pos.y);
 }
 
 
@@ -77,10 +78,10 @@ void Player::Boom(b2Vec2 force)
 {
 	//apply explosive force to the player based on the mouse click
 	if (body->GetLinearVelocity().Length() > -b2_epsilon && body->GetLinearVelocity().Length() < b2_epsilon) {
-		force = Helper::ClampMagnitude(force, 20000);
+		force = Helper::ClampMagnitude(force, maxBoom);
 		//force = Helper::SetVecMagnitude(force, Helper::Map(300 - force.Length(), 0, 100, minBoom, maxBoom)); //for use with the mouse launch
 		force = Helper::SetVecMagnitude(force, currLaunchPower);
-		//std::cout << "Boom Force: " << force.Length() << std::endl;
+		std::cout << "Boom Force: " << force.Length() << std::endl;
 		body->ApplyLinearImpulseToCenter(force, true);
 		currLaunchPower = 0;
 	}

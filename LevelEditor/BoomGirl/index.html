@@ -12,13 +12,19 @@
     <div id="controls">
       <select id="platform-type">
         <option value="rect">Rectangle</option>
-        <option value="complex">Polygon</option>
+        <option value="player">Player</option>
       </select>
       <input type="text" id="poly-verts" placeholder='[{"x":25,"y":0},{"x":0,"y":50},{"x":50,"y":50}]'>
+      <input type="text" id="add-vert-input" placeholder='x,y'>
+      <button id="addVert">Add Vertex</button>
+      <button id="remVert">Remove Vertex</button>
       <button id="addPoly">Add Polygon</button>
       <button id="genOutput">Output File</button>
       <input type="text" id="dimentions" placeholder='{"width":100,"height":100}'>
       <button id="changeDimentions">Change Size</button>
+    </div>
+    <div id="console">
+      <textarea id="console-area" readonly></textarea>
     </div>
     
     <canvas id="c">

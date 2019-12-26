@@ -18,8 +18,9 @@ public:
 	bool prevMouseClicked = false;
 	b2Vec2 prevPos;
 	b2Vec2 prevMousePos = b2Vec2(0, 0);
-	float launchIncrement = 60;
+	float launchIncrement = 200;
 	float currLaunchPower = 0;
+	b2Vec2 initPos = b2Vec2(0,0);
 
 	//reticle data
 	sf::Color retColor = sf::Color::Cyan;

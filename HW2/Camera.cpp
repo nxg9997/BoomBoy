@@ -43,8 +43,10 @@ void Camera::MoveCamera() {
 
 //stuck to player
 void Camera::MoveCamera(Player* p) {
-	origin->x -= p->body->GetPosition().x - p->prevPos.x;
-	origin->y -= p->body->GetPosition().y - p->prevPos.y;
+	b2Vec2 screenPos(p->body->GetPosition().x - p->size->x / 2 + origin->x, p->body->GetPosition().y - p->size->y / 2 + origin->y);
+
+	origin->x -= p->body->GetPosition().x - p->prevPos.x/* - (SFML_WIDTH/2 - p->initPos.x)*/;
+	origin->y -= p->body->GetPosition().y - p->prevPos.y/* - (SFML_HEIGHT/2 - p->initPos.y)*/;
 }
 
 void Camera::SoftFollowPlayer(Player * p)
@@ -88,4 +90,10 @@ void Camera::SoftFollowPlayer(Player * p)
 
 	acceleration->x = 0;
 	acceleration->y = 0;*/
+}
+
+void Camera::SetOrigin(Player * p)
+{
+	origin->x += (SFML_WIDTH / 2 - p->initPos.x);
+	origin->y += (SFML_HEIGHT / 2 - p->initPos.y);
 }

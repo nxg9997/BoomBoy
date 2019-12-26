@@ -20,6 +20,7 @@ public:
 	void MoveCamera();
 	void MoveCamera(Player* p);
 	void SoftFollowPlayer(Player* p);
+	void SetOrigin(Player* p);
 };
 
 
