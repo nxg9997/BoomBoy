@@ -17,6 +17,7 @@ public:
 	b2Vec2* size;
 	sf::Color color;
 	sf::Texture* texture = nullptr;
+	sf::Shape* p_shape = nullptr;
 
 	virtual void Draw(b2Vec2* origin);
 	virtual void SetTexture(sf::Texture* tex);

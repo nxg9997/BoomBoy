@@ -18,7 +18,7 @@ public:
 	bool prevMouseClicked = false;
 	b2Vec2 prevPos;
 	b2Vec2 prevMousePos = b2Vec2(0, 0);
-	float launchIncrement = 200;
+	float launchIncrement = 400;
 	float currLaunchPower = 0;
 	b2Vec2 initPos = b2Vec2(0,0);
 

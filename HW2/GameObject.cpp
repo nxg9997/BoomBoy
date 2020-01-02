@@ -22,6 +22,7 @@ GameObject::GameObject()
 GameObject::~GameObject()
 {
 	delete size;
+	delete p_shape;
 }
 
 void GameObject::Draw(b2Vec2* origin)
@@ -31,21 +32,25 @@ void GameObject::Draw(b2Vec2* origin)
 		cam = origin;
 	}
 
-	sf::RectangleShape shape(Helper::B2Vec2ToSfVec2(*size));
-	if (texture == nullptr) {
-		shape.setFillColor(color);
+	if (p_shape == nullptr) {
+		sf::RectangleShape* shape = new sf::RectangleShape(Helper::B2Vec2ToSfVec2(*size));
+		if (texture == nullptr) {
+			shape->setFillColor(color);
+		}
+		else {
+			shape->setTexture(texture, false);
+			//shape.setTextureRect(sf::IntRect(0, 0, 50, 50));
+		}
+		shape->setOutlineColor(sf::Color::Black);
+		shape->setOutlineThickness(1);
+		p_shape = shape;
 	}
-	else {
-		shape.setTexture(texture,false);
-		//shape.setTextureRect(sf::IntRect(0, 0, 50, 50));
-	}
-	shape.setOutlineColor(sf::Color::Green);
-	shape.setOutlineThickness(1);
-	shape.setPosition(sf::Vector2f(body->GetPosition().x - size->x/2 + origin->x, body->GetPosition().y - size->y/2 + origin->y));
-	window->draw(shape);
+	
+	p_shape->setPosition(sf::Vector2f(body->GetPosition().x - size->x/2 + origin->x, body->GetPosition().y - size->y/2 + origin->y));
+	window->draw(*p_shape);
 }
 
 void GameObject::SetTexture(sf::Texture * tex)
 {
-	texture = tex;
+	//texture = tex;
 }

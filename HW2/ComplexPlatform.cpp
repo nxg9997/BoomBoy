@@ -45,6 +45,8 @@ ComplexPlatform::ComplexPlatform(b2World* _world, sf::RenderWindow* _win, b2Vec2
 	_body->CreateFixture(&fixtureDef);
 
 	body = _body;
+
+	color = PLAT_COLOR;
 }
 
 
@@ -55,20 +57,24 @@ ComplexPlatform::~ComplexPlatform()
 
 void ComplexPlatform::Draw(b2Vec2* origin)
 {
-	sf::ConvexShape polygon;
-	polygon.setPointCount(vertCount);
+	if (p_shape == nullptr) {
+		sf::ConvexShape* polygon = new sf::ConvexShape();
+		polygon->setPointCount(vertCount);
 
-	for (int i = 0; i < vertCount; i++) {
-		polygon.setPoint(i, sf::Vector2f(verticies[i].x, verticies[i].y));
+		for (int i = 0; i < vertCount; i++) {
+			polygon->setPoint(i, sf::Vector2f(verticies[i].x, verticies[i].y));
+		}
+		if (texture == nullptr)
+			polygon->setFillColor(color);
+		else {
+			polygon->setTexture(texture);
+			//polygon.setTextureRect(sf::IntRect(0, 0, 50, 50));
+		}
+		polygon->setOutlineColor(sf::Color::Black);
+		polygon->setOutlineThickness(1);
+		p_shape = polygon;
 	}
-	if (texture == nullptr)
-		polygon.setFillColor(sf::Color::Blue);
-	else {
-		polygon.setTexture(texture);
-		//polygon.setTextureRect(sf::IntRect(0, 0, 50, 50));
-	}
-	polygon.setOutlineColor(sf::Color::Green);
-	polygon.setOutlineThickness(1);
-	polygon.setPosition(sf::Vector2f(body->GetPosition().x + origin->x, body->GetPosition().y + origin->y));
-	window->draw(polygon);
+	
+	p_shape->setPosition(sf::Vector2f(body->GetPosition().x + origin->x, body->GetPosition().y + origin->y));
+	window->draw(*p_shape);
 }
